@@ -1,3 +1,18 @@
 .card {
-  background-color: blueviolet;
+  background-color: white;
+  text-align: center;
+  padding: 10px 0;
+  margin: 10px;
+  
+  border-radius: 5px;
+  box-shadow: 2px 2px 10px lightgray;
+}
+
+.card h1 {
+  font-size: 1.8em;
+}
+
+.card h2 {
+  font-size: 1.5em;
+  color: #0779e4;
 }

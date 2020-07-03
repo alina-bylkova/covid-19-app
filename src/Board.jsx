@@ -14,7 +14,7 @@ export default class Board extends Component {
     fetch('https://api.covid19api.com/summary')
       .then((res) => res.json())
       .then((result) => {
-        this.setState({ data: result.Global.TotalConfirmed });
+        this.setState({ data: result.Global });
         console.log(this.state);
       });
   }
@@ -22,7 +22,9 @@ export default class Board extends Component {
   render() {
     return (
       <main className="board">
-        <Card value={this.state.data} />
+        <Card value={this.state.data.TotalConfirmed} name="Total confirmed cases" />
+        <Card value={this.state.data.TotalDeaths} name="Total deaths" />
+        <Card value={this.state.data.TotalRecovered} name="Total recoveries" />
       </main>
     );
   }
