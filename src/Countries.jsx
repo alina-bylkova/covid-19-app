@@ -10,21 +10,6 @@ export default class Countries extends Component {
     };
   }
 
-  // listedCountry = (country) => {
-  //   fetch(`https://api.covid19api.com/total/country/${country}`)
-  //     .then((res) => res.json())
-  //     .then((data) => this.setState({ countryData: data }));
-  // }
-
-  // getSelectedValue = () => {
-  //   const e = document.querySelector("#countries");
-  //   const result = e.options[e.selectedIndex].value;
-
-  //   fetch(`https://api.covid19api.com/total/country/${result}`)
-  //     .then((res) => res.json())
-  //     .then((data) => this.setState({ countryData: data }));
-  // }
-
   componentDidMount() {
     fetch('https://api.covid19api.com/countries')
       .then((res) => res.json())
@@ -32,11 +17,10 @@ export default class Countries extends Component {
   }
 
   updateCountryData(data) {
-    this.setState({ countryData: data })
+    this.setState({ countryData: data });
   }
 
-  componentDidUpdate() {
-  }
+  componentDidUpdate() {}
 
   render() {
     return (
@@ -50,8 +34,9 @@ export default class Countries extends Component {
               const result = e.options[e.selectedIndex].value;
               fetch(`https://api.covid19api.com/total/country/${result}`)
                 .then((res) => res.json())
-                .then(res2 => res2[res2.length - 1].Confirmed)
-                .then((data) => this.updateCountryData(data))
+                .then((res2) => res2[res2.length - 1])
+                .then((data) => this.updateCountryData(data));
+              console.log(this.state.countryData);
             }}
           >
             {this.state.countries.map((element) => {
@@ -63,7 +48,10 @@ export default class Countries extends Component {
             })}
           </select>
         </form>
-        <Card value={this.state.countryData} name="Country" />
+        <h1>Country</h1>
+        <Card value={this.state.countryData.Confirmed} name="Total Confirmed Cases" />
+        <Card value={this.state.countryData.Deaths} name="Total Dead" />
+        <Card value={this.state.countryData.Recovered} name="Total Recovered" />
       </>
     );
   }
