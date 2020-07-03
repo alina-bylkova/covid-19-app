@@ -45,7 +45,9 @@ export default class Countries extends Component {
               console.log(result);
               fetch(`https://api.covid19api.com/total/country/${result}`)
                 .then((res) => res.json())
-                .then((data) => this.setState({ countryData: data.Cases }));
+                .then(res2 => res2[res2.length - 1].Confirmed)
+                .then((data) => this.setState({ countryData: data.Cases }))
+              console.log(this.state.countryData);
             }}
           >
             {this.state.countries.map((element) => {
