@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Card from './Card';
 
 export default class Countries extends Component {
   constructor(props) {
@@ -9,18 +10,21 @@ export default class Countries extends Component {
     };
   }
 
-  listedCountry = (country) => {
-    fetch(`https://api.covid19api.com/total/country/${country}`)
-      .then((res) => res.json())
-      .then((data) => this.setState({ countryData: data }));
-  }
+  // listedCountry = (country) => {
+  //   fetch(`https://api.covid19api.com/total/country/${country}`)
+  //     .then((res) => res.json())
+  //     .then((data) => this.setState({ countryData: data }));
+  // }
 
-  getSelectedValue = () => {
-    const e = document.getElementById("countries");
-    const result = e.options[e.selectedIndex].value;
 
-    return result;
-  }
+  // getSelectedValue = () => {
+  //   const e = document.querySelector("#countries");
+  //   const result = e.options[e.selectedIndex].value;
+
+  //   fetch(`https://api.covid19api.com/total/country/${result}`)
+  //     .then((res) => res.json())
+  //     .then((data) => this.setState({ countryData: data }));
+  // }
 
   componentDidMount() {
     console.log('this is running');
@@ -31,19 +35,28 @@ export default class Countries extends Component {
 
   render() {
     return (
-      <form>
-        <label htmlFor="countries">Choose a country</label>
-        <select id="countries" onChange={this.listedCountry(this.getSelectedValue())}>
-          <option value="default" selected>Default</option>
-          {this.state.countries.map((element) => {
-            return (
-              <option value={element.Country} key={element.Country}>
-                {element.Country}
-              </option>
-            );
-          })}
-        </select>
-      </form>
+      <>
+        <form>
+          <label htmlFor="countries">Choose a country</label>
+          <select id="countries" onChange={() => {
+            const e = document.querySelector("#countries");
+            const result = e.options[e.selectedIndex].value;
+            console.log(result);
+            fetch(`https://api.covid19api.com/total/country/${result}`)
+              .then((res) => res.json())
+              .then((data) => this.setState({ countryData: data }));
+          }}>
+            {this.state.countries.map((element) => {
+              return (
+                <option value={element.Country} key={element.Country}>
+                  {element.Country}
+                </option>
+              );
+            })}
+          </select>
+        </form>
+        <Card value={this.state.countryData} name="Country" />
+      </>
     );
   }
 }
