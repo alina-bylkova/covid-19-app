@@ -5,35 +5,32 @@ export default class Countries extends Component {
     super(props);
     this.state = {
       countryData: null,
-      countries: null,
-    }
+      countries: [{ Country: 'Norway' }],
+    };
   }
   componentDidMount() {
+    console.log('this is running');
+    fetch('https://api.covid19api.com/countries')
+      .then((res) => res.json())
+      .then((data) => this.setState({ countries: data }));
 
-    this.getCountries = function () {
-      console.log('this is running')
-      fetch('https://api.covid19api.com/countries')
-        .then((res) => res.json())
-        .then(data => this.setState({ countries: data }))
-    }
-    this.getCountryData = function (country) {
-      fetch(`https://api.covid19api.com/total/country/${country}`)
-        .then((res) => res.json())
-        .then(data => this.setState({ countryData: data }))
-    }
+    // fetch(`https://api.covid19api.com/total/country/${country}`)
+    //   .then((res) => res.json())
+    //   .then((data) => this.setState({ countryData: data }));
   }
-
 
   render() {
     return (
       <form>
         <label for="countries">Choose a country</label>
         <select id="countries">
-          {
-            this.state.countries.map((element) => {
-              return (<option value={element.country} key={element.country}>{element.country}</option>)
-            })
-          }
+          {this.state.countries.map((element) => {
+            return (
+              <option value={element.Country} key={element.Country}>
+                {element.Country}
+              </option>
+            );
+          })}
         </select>
       </form>
     );

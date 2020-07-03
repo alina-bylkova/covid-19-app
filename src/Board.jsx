@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Card from './Card';
 import './Board.css';
-import Countries from './Countries'
+import Countries from './Countries';
 
 export default class Board extends Component {
   constructor(props) {
@@ -14,10 +14,7 @@ export default class Board extends Component {
   componentDidMount() {
     fetch('https://api.covid19api.com/summary')
       .then((res) => res.json())
-      .then((result) => {
-        this.setState({ data: result.Global });
-        console.log(this.state);
-      });
+      .then((result) => this.setState({ data: result.Global }));
   }
 
   render() {
