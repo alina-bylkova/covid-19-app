@@ -17,6 +17,8 @@ export default class Board extends Component {
       .then((result) => this.setState({ data: result.Global }));
   }
 
+  componentDidUpdate() {}
+
   render() {
     return (
       <>

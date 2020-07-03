@@ -5,7 +5,7 @@ export default class Countries extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      countryData: null,
+      countryData: 'Loading...',
       countries: [{ Country: 'Norway' }],
     };
   }
@@ -45,7 +45,7 @@ export default class Countries extends Component {
               console.log(result);
               fetch(`https://api.covid19api.com/total/country/${result}`)
                 .then((res) => res.json())
-                .then((data) => this.setState({ countryData: data }));
+                .then((data) => this.setState({ countryData: data.Cases }));
             }}
           >
             {this.state.countries.map((element) => {
@@ -57,7 +57,7 @@ export default class Countries extends Component {
             })}
           </select>
         </form>
-        <Card value={this.state.countryData.Cases} name="Country" />
+        <Card value={this.state.countryData} name="Country" />
       </>
     );
   }
