@@ -6,7 +6,7 @@ export default class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: null,
+      data: 'hello',
     };
   }
 
@@ -14,8 +14,8 @@ export default class Board extends Component {
     fetch('https://api.covid19api.com/summary')
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         this.setState({ data: result });
+        console.log(this.state);
       });
   };
 
