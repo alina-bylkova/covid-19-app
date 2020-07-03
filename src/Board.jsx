@@ -21,11 +21,20 @@ export default class Board extends Component {
 
   render() {
     return (
-      <main className="board">
-        <Card value={this.state.data.TotalConfirmed} name="Total confirmed cases" />
-        <Card value={this.state.data.TotalDeaths} name="Total deaths" />
-        <Card value={this.state.data.TotalRecovered} name="Total recoveries" />
-      </main>
+      <>
+        <h1>Global statistics to date</h1>
+        <main className="board">
+          <Card value={this.state.data.TotalConfirmed} name="Total confirmed cases" />
+          <Card value={this.state.data.TotalDeaths} name="Total deaths" />
+          <Card value={this.state.data.TotalRecovered} name="Total recoveries" />
+        </main>
+        <h1>Daily statistics</h1>
+        <main className="board">
+          <Card value={this.state.data.NewConfirmed} name="New confirmed cases" />
+          <Card value={this.state.data.NewDeaths} name="New deaths" />
+          <Card value={this.state.data.NewRecovered} name="New recoveries" />
+        </main>
+      </>
     );
   }
 }
