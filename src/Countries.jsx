@@ -16,7 +16,6 @@ export default class Countries extends Component {
   //     .then((data) => this.setState({ countryData: data }));
   // }
 
-
   // getSelectedValue = () => {
   //   const e = document.querySelector("#countries");
   //   const result = e.options[e.selectedIndex].value;
@@ -38,14 +37,17 @@ export default class Countries extends Component {
       <>
         <form>
           <label htmlFor="countries">Choose a country</label>
-          <select id="countries" onChange={() => {
-            const e = document.querySelector("#countries");
-            const result = e.options[e.selectedIndex].value;
-            console.log(result);
-            fetch(`https://api.covid19api.com/total/country/${result}`)
-              .then((res) => res.json())
-              .then((data) => this.setState({ countryData: data }));
-          }}>
+          <select
+            id="countries"
+            onChange={() => {
+              const e = document.querySelector('#countries');
+              const result = e.options[e.selectedIndex].value;
+              console.log(result);
+              fetch(`https://api.covid19api.com/total/country/${result}`)
+                .then((res) => res.json())
+                .then((data) => this.setState({ countryData: data }));
+            }}
+          >
             {this.state.countries.map((element) => {
               return (
                 <option value={element.Country} key={element.Country}>
@@ -55,7 +57,7 @@ export default class Countries extends Component {
             })}
           </select>
         </form>
-        <Card value={this.state.countryData} name="Country" />
+        <Card value={this.state.countryData.Cases} name="Country" />
       </>
     );
   }
