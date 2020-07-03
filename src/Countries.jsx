@@ -8,22 +8,24 @@ export default class Countries extends Component {
       countries: [{ Country: 'Norway' }],
     };
   }
+
+  listedCountry = (country) => {
+    fetch(`https://api.covid19api.com/total/country/${country}`)
+      .then((res) => res.json())
+      .then((data) => this.setState({ countryData: data }));
+  }
   componentDidMount() {
     console.log('this is running');
     fetch('https://api.covid19api.com/countries')
       .then((res) => res.json())
       .then((data) => this.setState({ countries: data }));
-
-    // fetch(`https://api.covid19api.com/total/country/${country}`)
-    //   .then((res) => res.json())
-    //   .then((data) => this.setState({ countryData: data }));
   }
 
   render() {
     return (
       <form>
-        <label for="countries">Choose a country</label>
-        <select id="countries">
+        <label htmlFor="countries">Choose a country</label>
+        <select id="countries" onChange="listedCountry(this.value)">
           {this.state.countries.map((element) => {
             return (
               <option value={element.Country} key={element.Country}>
