@@ -14,6 +14,14 @@ export default class Countries extends Component {
       .then((res) => res.json())
       .then((data) => this.setState({ countryData: data }));
   }
+
+  getSelectedValue = () => {
+    const e = document.getElementById("countries");
+    const result = e.options[e.selectedIndex].value;
+
+    return result;
+  }
+
   componentDidMount() {
     console.log('this is running');
     fetch('https://api.covid19api.com/countries')
@@ -25,7 +33,8 @@ export default class Countries extends Component {
     return (
       <form>
         <label htmlFor="countries">Choose a country</label>
-        <select id="countries" onChange="listedCountry(this.value)">
+        <select id="countries" onChange={this.listedCountry(this.getSelectedValue())}>
+          <option value="default" selected>Default</option>
           {this.state.countries.map((element) => {
             return (
               <option value={element.Country} key={element.Country}>
