@@ -23,6 +23,12 @@ export default class Board extends Component {
     this.getData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (false) {
+      this.getData();
+    }
+  }
+
   render() {
     return (
       <main className="board">
