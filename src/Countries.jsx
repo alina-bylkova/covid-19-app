@@ -5,7 +5,7 @@ export default class Countries extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      countryData: 'Loading...',
+      countryData: '',
       countries: [{ Country: 'Norway' }],
     };
   }
@@ -26,10 +26,16 @@ export default class Countries extends Component {
   // }
 
   componentDidMount() {
-    console.log('this is running');
     fetch('https://api.covid19api.com/countries')
       .then((res) => res.json())
       .then((data) => this.setState({ countries: data }));
+  }
+
+  updateCountryData(data) {
+    this.setState({ countryData: data })
+  }
+
+  componentDidUpdate() {
   }
 
   render() {
@@ -42,12 +48,10 @@ export default class Countries extends Component {
             onChange={() => {
               const e = document.querySelector('#countries');
               const result = e.options[e.selectedIndex].value;
-              console.log(result);
               fetch(`https://api.covid19api.com/total/country/${result}`)
                 .then((res) => res.json())
                 .then(res2 => res2[res2.length - 1].Confirmed)
-                .then((data) => this.setState({ countryData: data.Cases }))
-              console.log(this.state.countryData);
+                .then((data) => this.updateCountryData(data))
             }}
           >
             {this.state.countries.map((element) => {
